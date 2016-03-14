@@ -1,6 +1,6 @@
 <h1>New URL</h1>
 
-<%= form_for :url, url: urls_path do |f| %>
+<%= form_for @url do |f| %>
   <% if @url.errors.any? %>
     <div id="error_explanation">
       <h2>

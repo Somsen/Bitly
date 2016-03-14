@@ -1,9 +1,9 @@
 class UrlsController < ApplicationController
 
-  before_action :check_url_existance, only: [:create]
-
   def index
     @urls = Url.all
+    # cookies[:login] = "XJ-122"
+    cookies.signed[:login_signed] = "XJ-122"
   end
 
   def show
@@ -16,29 +16,33 @@ class UrlsController < ApplicationController
 
   def create
 
-    # FIND IF THERE IS ANY URL IN THE BD BEFORE TRY TO CREATE
-
-    @url = Url.new(urls_params)
-
-    if @url.save
+    if Url.full_url_already_shortened?(urls_params[:full_url])
+      @url = Url.find_by(full_url: urls_params[:full_url])
       redirect_to @url
     else
-      # IN CASE OF ERROR, VALIDATE THE KIND OF ERROR AND IF THE CASE WAS THE UNIQUENESS VALIDATION
-      # FIND THE EXISTING REFERENCE
-      # @url_db = Url.where(full_url: urls_params[:full_url]).first
+      @url = Url.new(urls_params)
+      if @url.save
+        # errors.full_messages
+        # 
+        redirect_to @url
+      else
+        # IN CASE OF ERROR, VALIDATE THE KIND OF ERROR AND IF THE CASE WAS THE UNIQUENESS VALIDATION
+        # FIND THE EXISTING REFERENCE
+        # @url_db = Url.where(full_url: urls_params[:full_url]).first
 
-      # if @url_db.nil?
-        render 'new'
-      # else
-      #   redirect_to @url_db
-      # end
+        # if @url_db.nil?
+          render 'new'
+        # else
+        #   redirect_to @url_db
+        # end
+      end
     end
+    
   end
 
   def destroy
     @url = Url.find(params[:id])
     @url.destroy
-
     redirect_to urls_path
   end
 
