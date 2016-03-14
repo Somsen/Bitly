@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
+
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+  
   get 'welcome/index'
 
   resources :urls
   resources :users, except: [:destroy] 
+
 
    get ':short' => 'links#show'
 
