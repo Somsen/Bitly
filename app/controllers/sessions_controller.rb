@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
       cookies.signed[:login_signed] = @user.name
       redirect_to welcome_index_path
     else
+      flash[:message] = "Invalid email or password."
       render 'new'
     end
   end

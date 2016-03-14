@@ -1,9 +1,9 @@
 class UrlsController < ApplicationController
 
+  before_action :require_login
+
   def index
     @urls = Url.all
-    # cookies[:login] = "XJ-122"
-    cookies.signed[:login_signed] = "XJ-122"
   end
 
   def show
@@ -58,6 +58,13 @@ class UrlsController < ApplicationController
     unless url.nil?
       flash[:message] = "existance"
       return redirect_to url
+    end
+  end
+
+  def require_login
+    unless cookies.signed[:login_signed]
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to login_path
     end
   end
 
