@@ -1,0 +1,20 @@
+<h1>List of Urls</h1>
+
+<%= link_to 'Create short URL', new_url_path %>
+
+<table>
+  <tr>
+    <th>Full url</th>
+    <th>Short url</th>
+    <th colspan="1"></th>
+  </tr>
+
+  <% @urls.each do |url| %>
+    <tr>
+      <td><%= url.full_url %></td>
+      <td>http://localhost:3000/<%= url.short_url %></td>
+      <td><%= link_to 'Delete', url_path(url),
+          method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
