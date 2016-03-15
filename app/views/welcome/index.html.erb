@@ -1,13 +1,3 @@
 <h1>Welcome</h1>
 
-<% unless logged_in? %>
-  <%= link_to 'Sign up', new_user_path %>
-
-  <%= link_to 'Log in', login_path %>
-<% else %>
-  <h2>Hello <%= cookies.signed[:login_signed] %></h2>
-  
-  <%= link_to 'Link Shortener', new_url_path %>
-
-  <%= link_to 'Log out', logout_path, method: "delete" %>
-<% end %>
+ <%= render partial: 'shared/navigation' %>

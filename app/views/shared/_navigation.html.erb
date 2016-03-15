@@ -1,0 +1,7 @@
+<% if logged_in? %>
+  <%= link_to 'Link Shortener', new_url_path %>
+  <%= link_to "Log out #{first_name(current_user)}", logout_path, method: "delete" %>
+<% else %>
+  <%= link_to 'Sign up', new_user_path %>
+  <%= link_to 'Log in', login_path %>
+<% end %>

@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     password_hash = Digest::MD5.hexdigest(login_params[:password])
 
     if password_hash == @user.password_digest
-      cookies.signed[:login_signed] = @user.name
+      cookies.signed[:login_signed] = @user.id
       redirect_to welcome_index_path
     else
       flash[:message] = "Invalid email or password."

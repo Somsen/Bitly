@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
 
   before_create :encrypt_password
 
-
   private
     def encrypt_password
       self.password_digest = Digest::MD5.hexdigest(self.password)

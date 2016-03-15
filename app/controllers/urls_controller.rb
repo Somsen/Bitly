@@ -61,11 +61,4 @@ class UrlsController < ApplicationController
     end
   end
 
-  def require_login
-    unless cookies.signed[:login_signed]
-      flash[:error] = "You must be logged in to access this section"
-      redirect_to login_path
-    end
-  end
-
 end
